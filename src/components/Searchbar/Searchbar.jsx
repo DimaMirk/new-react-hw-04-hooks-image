@@ -1,22 +1,16 @@
-import { Component } from "react";
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 
-class Searchbar extends Component{
-    state = {
-        searchQuery: ''
-    }
 
-    onSearchChnage = (ev) => {
-        this.setState({ searchQuery: ev.currentTarget.value });
-    }
+export default function Searchbar({onSearch}) {
+    const [searchQuery, setSearchQuery] = useState('')
 
-    render() {
-        return (
+     return (
         <header className="Searchbar">
             <form className="SearchForm" onSubmit={
                     (ev) => {
                     ev.preventDefault()
-                    this.props.onSearch(this.state.searchQuery)
+                    onSearch(searchQuery)
                     }}>
                 <button type="submit" className="SearchForm-button">
                         <CiSearch style={{ width: "30px",height:"30px" }}/>
@@ -25,12 +19,9 @@ class Searchbar extends Component{
                     className="SearchForm-input"
                     type="text"                  
                     placeholder="Search images and photos"
-                    onInput={this.onSearchChnage}
+                    onInput={(ev)=>{setSearchQuery(ev.currentTarget.value)}}
                 />
             </form>
         </header>
         )
-    }
-}
-
-export default Searchbar;
+};
